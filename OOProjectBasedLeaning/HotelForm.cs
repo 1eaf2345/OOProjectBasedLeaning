@@ -11,7 +11,7 @@ using System.Windows.Forms;
 namespace OOProjectBasedLeaning
 {
 
-    public partial class HotelForm : Form
+    public partial class HotelForm:DragDropForm
     {
 
         private Hotel hotel = new Hotel();
@@ -20,6 +20,25 @@ namespace OOProjectBasedLeaning
         {
 
             InitializeComponent();
+
+        }
+
+        protected override void OnFormDragEnterSerializable(DragEventArgs dragEventArgs)
+        {
+
+            dragEventArgs.Effect = DragDropEffects.Move;
+
+        }
+
+        protected override void OnFormDragDropSerializable(object? serializableObject, DragEventArgs dragEventArgs)
+        {
+
+            if (serializableObject is DragDropPanel)
+            {
+
+                (serializableObject as DragDropPanel).AddDragDropForm(this, PointToClient(new Point(dragEventArgs.X, dragEventArgs.Y)));
+
+            }
 
         }
 
