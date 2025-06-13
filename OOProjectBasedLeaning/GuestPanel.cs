@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace OOProjectBasedLeaning
 {
 
-    public class GuestPanel : Panel
+    public class GuestPanel : DragDropPanel
     {
 
         private Guest guest;
@@ -40,6 +41,14 @@ namespace OOProjectBasedLeaning
 
             Controls.Add(guestNameLabel);
             Controls.Add(guestNameTextBox);
+
+        }
+
+        protected override void OnPanelMouseDown()
+        {
+            DoDragDropMove();
+
+           // model.Name = "Drop at " + DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss]");
 
         }
 
