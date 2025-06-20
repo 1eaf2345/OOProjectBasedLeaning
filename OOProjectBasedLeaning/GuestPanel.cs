@@ -48,7 +48,15 @@ namespace OOProjectBasedLeaning
         {
             DoDragDropMove();
 
-           // model.Name = "Drop at " + DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss]");
+            if(GetForm() is HomeForm)
+            {
+                guest.Name = "チェックアウト";
+            } 
+            else
+            {
+                guest.Name = "Drop at " + DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss]");
+            }
+
 
         }
 
