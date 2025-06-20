@@ -55,7 +55,10 @@ namespace OOProjectBasedLeaning
         {
 
         }
-
+        protected Form GetForm()
+        {
+            return form;
+        }
         public virtual DragDropPanel AddDragDropForm(Form form, Point dropPoint)
         {
 
