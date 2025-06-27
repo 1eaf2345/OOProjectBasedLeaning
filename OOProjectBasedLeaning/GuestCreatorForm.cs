@@ -46,6 +46,14 @@ namespace OOProjectBasedLeaning
 
         }
 
+        private void CreateMemberEvent_Click(object sender, EventArgs e)
+        {
+            Controls.Add(new GuestPanel(CreateMember())
+            {
+                Location = new Point(10, 10 + Controls.Count * 30),
+                Width = 300,
+            });
+        }
     }
 
 }

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             button1 = new Button();
+            CreateMemberEvent = new Button();
             SuspendLayout();
             // 
             // button1
@@ -41,11 +42,22 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += CreateGuestEvent;
             // 
+            // CreateMemberEvent
+            // 
+            CreateMemberEvent.Location = new Point(430, 74);
+            CreateMemberEvent.Name = "CreateMemberEvent";
+            CreateMemberEvent.Size = new Size(89, 36);
+            CreateMemberEvent.TabIndex = 1;
+            CreateMemberEvent.Text = "会員の作成";
+            CreateMemberEvent.UseVisualStyleBackColor = true;
+            CreateMemberEvent.Click += CreateMemberEvent_Click;
+            // 
             // GuestCreatorForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(531, 314);
+            Controls.Add(CreateMemberEvent);
             Controls.Add(button1);
             Name = "GuestCreatorForm";
             Text = "GuestCreatorForm";
@@ -55,5 +67,6 @@
         #endregion
 
         private Button button1;
+        private Button CreateMemberEvent;
     }
 }
