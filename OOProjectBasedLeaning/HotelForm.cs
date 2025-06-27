@@ -16,6 +16,9 @@ namespace OOProjectBasedLeaning
 
         private Hotel hotel = new Hotel();
 
+        //チェックイン済みゲストを表示するリストを作成
+        private Label lguestNamesLabel;
+
         public HotelForm()
         {
 
