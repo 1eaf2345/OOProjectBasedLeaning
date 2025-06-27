@@ -112,7 +112,7 @@ namespace OOProjectBasedLeaning
 
     }
 
-    public class MemberModel : AbstractGuest, Member
+    public class MemberModel : AbstractGuest, Member //ここを'NotifierModelEntity'に変える？
     {
 
         private int id;
