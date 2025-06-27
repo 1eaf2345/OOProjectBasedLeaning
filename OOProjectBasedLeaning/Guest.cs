@@ -21,7 +21,8 @@ namespace OOProjectBasedLeaning
         bool IsMember();
 
         bool IsVIP();
-
+        bool IsAtCheckIN();
+        bool IsAtCheckOUT();
     }
 
     public interface Member : Guest
@@ -39,6 +40,26 @@ namespace OOProjectBasedLeaning
     {
 
         private Room room = NullRoom.Instance;
+
+        private string status = "NONE"; // 状態管理用フィールド
+
+        public string Name { get; protected set; } = "未設定";
+
+        
+        public bool IsAtCheckIN()//チェックインの判定
+        {
+            return status == "IN";
+        }
+
+        public bool IsAtCheckOUT()//チェックアウトの判定
+        {
+            return status == "OUT";
+        }
+
+        public void SetStatus(string status)
+        {
+            this.status = status;
+        }
 
         public AbstractGuest()
         {
