@@ -39,9 +39,14 @@ namespace OOProjectBasedLeaning
                 Width = 160
             };
 
+            Label GusetStatusLabel = new GuestStatusLabel(guest)
+            {
+                Location = new Point(10, 10),
+            };
+
             Controls.Add(guestNameLabel);
             Controls.Add(guestNameTextBox);
-
+            Controls.Add(guestNameLabel);
         }
 
         protected override void OnPanelMouseDown()
