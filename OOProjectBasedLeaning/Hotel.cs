@@ -85,6 +85,11 @@ namespace OOProjectBasedLeaning
 
         public void CheckIn(Guest guest) //チェックイン処理
         {
+            if (guest.StayAt() is not NullObject)
+            {
+                throw new AlreadyCheckedInException(guest); // ← 例外を出す
+            }
+
 
             if (IsVacancies())//空き室確認
             {
@@ -119,6 +124,12 @@ namespace OOProjectBasedLeaning
 
         public void CheckIn(List<Guest> guests)//チェックイン処理(複数)
         {
+
+            if (guests.Any(g => g.StayAt() is not NullObject))
+            {
+                throw new AlreadyCheckedInException(guests); // ← 複数人の例外を出す
+            }
+
 
             if (IsVacancies())
             {

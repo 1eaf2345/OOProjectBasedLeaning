@@ -91,8 +91,14 @@ namespace OOProjectBasedLeaning
             }
             else if (place is Hotel)//HotelにドロップされるときCheckIn
             {
-
-                (place as Hotel).CheckIn(this);
+                try
+                {
+                    (place as Hotel).CheckIn(this);
+                }
+                catch(AlreadyCheckedInException ex)
+                {
+                    MessageBox.Show(ex.Message, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
             }
 

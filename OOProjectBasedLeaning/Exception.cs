@@ -125,4 +125,29 @@ namespace OOProjectBasedLeaning
         }
 
     }
+
+    [Serializable]
+    public class AlreadyCheckedInException : LocalizeException
+    {
+        private static string MESSAGE_DEFAULT = "Guest is already checked in.";
+        private static string MESSAGE_JAPANESE = "ゲストはすでにチェックイン済みです。";
+
+        public AlreadyCheckedInException(Guest guest)
+            : base($"このゲスト {guest.Name} はすでにチェックイン済みです。")
+        {
+            Initialize();
+        }
+
+        public AlreadyCheckedInException(List<Guest> guests)
+            : base("一部のゲストはすでにチェックイン済みです。")
+        {
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            AddLocalizedMessage(Locale.DEFAULT, MESSAGE_DEFAULT);
+            AddLocalizedMessage(Locale.JAPAN, MESSAGE_JAPANESE);
+        }
+    }
 }
