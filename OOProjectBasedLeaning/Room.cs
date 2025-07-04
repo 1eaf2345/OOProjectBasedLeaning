@@ -7,18 +7,45 @@ using System.Threading.Tasks;
 namespace OOProjectBasedLeaning
 {
 
-    public class Room
+    public interface Room
+    {
+
+        int Number { get; }
+
+        int Price { get; }
+
+        Hotel Hotel { get; }
+
+        Room AddGuest(Guest guest);
+
+        Room AddGuests(List<Guest> guests);
+
+        Room RemoveGuest(Guest guest);
+
+        Room RemoveGuests(List<Guest> guests);
+
+        bool HasMember();
+
+        bool HasVIP();
+
+        bool IsEmpty();
+
+    }
+
+    public class RoomModel : ModelEntity, Room
     {
 
         private int number;
         private int price;
+        private Hotel hotel = NullHotel.Instance;
         private List<Guest> guests = new List<Guest>();
 
-        public Room(int number, int price)
+        public RoomModel(int number, int price, Hotel hotel)
         {
 
             this.number = number;
             this.price = price;
+            this.hotel = hotel;
 
         }
 
@@ -46,6 +73,8 @@ namespace OOProjectBasedLeaning
         public int Number { get { return number; } }
 
         public virtual int Price { get { return price; } }
+
+        public Hotel Hotel => hotel;
 
         public virtual Room AddGuest(Guest guest)
         {
@@ -130,10 +159,10 @@ namespace OOProjectBasedLeaning
 
     }
 
-    public class RegularRoom : Room
+    public class RegularRoom : RoomModel
     {
 
-        public RegularRoom(int number, int price) : base(number, price)
+        public RegularRoom(int number, int price , Hotel hotel) : base(number, price ,hotel)
         {
 
         }
@@ -159,10 +188,10 @@ namespace OOProjectBasedLeaning
 
     }
 
-    public class SuiteRoom : Room
+    public class SuiteRoom : RoomModel
     {
 
-        public SuiteRoom(int number, int price) : base(number, price)
+        public SuiteRoom(int number, int price, Hotel hotel) : base(number, price, hotel)
         {
 
         }
@@ -223,27 +252,57 @@ namespace OOProjectBasedLeaning
 
         private static Room instance = new NullRoom();
 
-        private NullRoom() : base(0, 0)
+        private NullRoom()
         {
 
         }
 
         public static Room Instance { get { return instance; } }
 
-        public override Room AddGuest(Guest guest)
+        public int Number => int.MinValue;
+
+        public int Price => int.MinValue;
+
+        public Hotel Hotel => NullHotel.Instance;
+
+        public Room AddGuest(Guest guest)
         {
 
             return this;
 
         }
 
-        public override Room AddGuests(List<Guest> guests)
+        public Room AddGuests(List<Guest> guests)
         {
 
             return this;
 
         }
 
+        public bool HasMember()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool HasVIP()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsEmpty()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Room RemoveGuest(Guest guest)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Room RemoveGuests(List<Guest> guests)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

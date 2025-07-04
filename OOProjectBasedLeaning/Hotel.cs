@@ -186,4 +186,42 @@ namespace OOProjectBasedLeaning
 
     }
 
+    public class NullHotel : Hotel
+    {
+
+        private static readonly Hotel instance = new NullHotel();
+
+        private NullHotel() { }
+
+        public static Hotel Instance => instance;
+
+        public void CheckIn(Guest guest)
+        {
+
+        }
+
+        public void CheckIn(List<Guest> guests)
+        {
+
+        }
+
+        public void CheckOut(Guest guest)
+        {
+
+        }
+
+        public void CheckOut(List<Guest> guests)
+        {
+
+        }
+
+        public bool IsVacancies()
+        {
+
+            return false;
+
+        }
+
+    }
+
 }
