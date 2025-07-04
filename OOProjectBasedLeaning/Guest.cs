@@ -23,8 +23,8 @@ namespace OOProjectBasedLeaning
         bool IsMember();
 
         bool IsVIP();
-        bool IsAtCheckIN();
-        bool IsAtCheckOUT();
+        //bool IsAtCheckIN();
+        //bool IsAtCheckOUT();
     }
 
     public interface Member : Guest
@@ -162,7 +162,7 @@ namespace OOProjectBasedLeaning
 
     }
 
-    public class MemberModel : AbstractGuest, Member //ここを'NotifierModelEntity'に変える？
+    public class MemberModel : AbstractGuest, Member 
     {
 
         private int id;
