@@ -12,6 +12,8 @@ namespace OOProjectBasedLeaning
     public interface Guest : Model
     {
 
+        void GoTo(Place place);
+
         Guest AddRoom(Room room);
 
         Guest RemoveRoom();
@@ -36,30 +38,30 @@ namespace OOProjectBasedLeaning
 
     }
 
-    public abstract class AbstractGuest : ModelEntity, Guest
+    public abstract class AbstractGuest : NotifierModelEntity, Guest
     {
-
+        private Place place = NullPlace.Instance;
         private Room room = NullRoom.Instance;
 
-        private string status = "NONE"; // 状態管理用フィールド
+        //private string status = "NONE"; // 状態管理用フィールド
 
-        public string Name { get; protected set; } = "未設定";
+        //public string Name { get; protected set; } = "未設定";
 
         
-        public bool IsAtCheckIN()//チェックインの判定
-        {
-            return status == "IN";
-        }
+        //public bool IsAtCheckIN()//チェックインの判定
+        //{
+        //    return status == "IN";
+        //}
 
-        public bool IsAtCheckOUT()//チェックアウトの判定
-        {
-            return status == "OUT";
-        }
+        //public bool IsAtCheckOUT()//チェックアウトの判定
+        //{
+        //    return status == "OUT";
+        //}
 
-        public void SetStatus(string status)
-        {
-            this.status = status;
-        }
+        //public void SetStatus(string status)
+        //{
+        //    this.status = status;
+        //}
 
         public AbstractGuest()
         {
@@ -70,6 +72,33 @@ namespace OOProjectBasedLeaning
         {
 
             Name = name;
+
+        }
+
+        public void GoTo(Place place) //CheckInかCheckOutのどちらかを行う
+        {
+
+            if (place is Home)//Hotelにいた場状態で、HomeにドロップされるときCheckOut
+            {
+
+                if (StayAt() is not NullObject)
+                {
+
+                    StayAt().Hotel.CheckOut(this);
+
+                }
+
+            }
+            else if (place is Hotel)//HotelにドロップされるときCheckIn
+            {
+
+                (place as Hotel).CheckIn(this);
+
+            }
+
+            this.place = place;
+
+            Notify();
 
         }
 

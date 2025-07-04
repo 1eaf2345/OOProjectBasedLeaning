@@ -39,27 +39,59 @@ namespace OOProjectBasedLeaning
                 Width = 160
             };
 
-            Label GusetStatusLabel = new GuestStatusLabel(guest)
+            Label gusetStatusLabel = new GuestStatusLabel(guest) //StatusLabelの追加
             {
                 Location = new Point(10, 10),
             };
 
             Controls.Add(guestNameLabel);
             Controls.Add(guestNameTextBox);
-            Controls.Add(guestNameLabel);
+            Controls.Add(gusetStatusLabel); //StatusLabelを追加
         }
 
         protected override void OnPanelMouseDown()
         {
             DoDragDropMove();
 
-            if(GetForm() is HomeForm)
+            //if(GetForm() is HomeForm)
+            //{
+            //    guest.Name = "チェックアウト";
+            //} 
+            //else
+            //{
+            //    guest.Name = "Drop at " + DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss]");
+            //}
+
+            try
             {
-                guest.Name = "チェックアウト";
-            } 
-            else
+
+                if (GetForm() is HotelForm) //ドロップされたフォームがHotelか確認
+                {
+
+                    guest.GoTo((GetForm() as HotelForm).Hotel);
+
+                }
+                else if (GetForm() is HomeForm)//ドロップされたフォームがHomeか確認
+                {
+
+                    guest.GoTo((GetForm() as HomeForm).Home);
+
+                }
+
+            }
+            catch (IsNotVacanciesException ex)
             {
-                guest.Name = "Drop at " + DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss]");
+
+                // TODO: Handle the exception when there are no vacancies in the hotel or home.
+                MessageBox.Show($"{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+            catch (OnlyMembersCanStayInSuiteRoomsException ex)
+            {
+
+                // TODO: Handle the exception when a guest who is not a member tries to stay in a suite room.
+                MessageBox.Show($"{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
 
 

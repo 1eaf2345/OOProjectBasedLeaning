@@ -43,20 +43,20 @@ namespace OOProjectBasedLeaning
 
         }
 
-        public void Update(object sender)
+        public void Update(object sender) //ゲストの状態
         {
 
             if (guest.IsAtCheckIN())
             {
 
-                Text = "チェックイン";
+                Text = "帰宅中";
                 ForeColor = Color.Red;
 
             }
             else if (guest.IsAtCheckOUT())
             {
 
-                Text = "チェックアウト";
+                Text = "宿泊中";
                 ForeColor = Color.Green;
 
             }
