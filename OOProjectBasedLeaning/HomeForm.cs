@@ -4,10 +4,14 @@ namespace OOProjectBasedLeaning
     public partial class HomeForm : DragDropForm
     {
 
+        private Home home = NullHome.Instance; 
+
         public HomeForm()
         {
 
             InitializeComponent();
+
+            home = new HomeModel("MyHome");
 
         }
         protected override void OnFormDragEnterSerializable(DragEventArgs dragEventArgs)
@@ -28,6 +32,8 @@ namespace OOProjectBasedLeaning
             }
 
         }
+
+        public Home Home => home;
     }
 
 }

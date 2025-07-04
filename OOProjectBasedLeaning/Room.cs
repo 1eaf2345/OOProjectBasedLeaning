@@ -218,11 +218,10 @@ namespace OOProjectBasedLeaning
         public override Room AddGuest(Guest guest)
         {
 
-            if (!HasMember())
+            if (guest is not Member)
             {
 
-                // TODO
-                throw new NotImplementedException();
+                throw new OnlyMembersCanStayInSuiteRoomsException();
 
             }
 
@@ -236,8 +235,7 @@ namespace OOProjectBasedLeaning
             if (!HasMember())
             {
 
-                // TODO
-                throw new NotImplementedException();
+                throw new OnlyMembersCanStayInSuiteRoomsException();
 
             }
 

@@ -14,13 +14,22 @@ namespace OOProjectBasedLeaning
     public partial class HotelForm:DragDropForm
     {
 
-        private Hotel hotel = new Hotel();
+        private Hotel hotel;
 
         public HotelForm()
         {
 
             InitializeComponent();
 
+            hotel = new HotelModel("MyHotel");
+
+            Controls.Add(new HotelVacanciesLabel(hotel)//部屋の状態
+            {
+
+                Dock = DockStyle.Top,
+                Font = new Font("Arial", 16, FontStyle.Bold),
+
+            });
         }
 
         protected override void OnFormDragEnterSerializable(DragEventArgs dragEventArgs)
@@ -36,11 +45,14 @@ namespace OOProjectBasedLeaning
             if (serializableObject is DragDropPanel)
             {
 
-                (serializableObject as DragDropPanel).AddDragDropForm(this, PointToClient(new Point(dragEventArgs.X, dragEventArgs.Y)));
+                GuestPanel guestPanel = serializableObject as GuestPanel;
+                guestPanel.AddDragDropForm(this, PointToClient(new Point(dragEventArgs.X, dragEventArgs.Y)));
 
             }
 
         }
+
+        public Hotel Hotel => hotel;
 
     }
 

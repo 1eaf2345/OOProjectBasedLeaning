@@ -43,28 +43,48 @@ namespace OOProjectBasedLeaning
 
         }
 
+        //public void Update(object sender) 
+        //{
+
+        //    if (guest.IsAtCheckIN())
+        //    {
+
+        //        Text = "帰宅中";
+        //        ForeColor = Color.Red;
+
+        //    }
+        //    else if (guest.IsAtCheckOUT())
+        //    {
+
+        //        Text = "宿泊中";
+        //        ForeColor = Color.Green;
+
+        //    }
+        //    else
+        //    {
+
+        //        Text = "－－－";
+        //        ForeColor = Color.Gray;
+
+        //    }
+
+        //}
+
         public void Update(object sender) //ゲストの状態
         {
 
-            if (guest.IsAtCheckIN())
+            if (guest.StayAt() is NullObject)
             {
 
                 Text = "帰宅中";
-                ForeColor = Color.Red;
-
-            }
-            else if (guest.IsAtCheckOUT())
-            {
-
-                Text = "宿泊中";
-                ForeColor = Color.Green;
+                ForeColor = Color.Orange;
 
             }
             else
             {
 
-                Text = "－－－";
-                ForeColor = Color.Gray;
+                Text = "宿泊中";
+                ForeColor = Color.Green;
 
             }
 
