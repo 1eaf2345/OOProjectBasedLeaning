@@ -29,13 +29,13 @@ namespace OOProjectBasedLeaning
             {
                 Text = guest.Name,
                 AutoSize = true,
-                Location = new Point(10, 10)
+                Location = new Point(10, 40)
             };
 
             TextBox guestNameTextBox = new TextBox
             {
                 Text = guest.Name,
-                Location = new Point(120, 6),
+                Location = new Point(120, 36),
                 Width = 160
             };
 
