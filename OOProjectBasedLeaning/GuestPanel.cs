@@ -39,10 +39,11 @@ namespace OOProjectBasedLeaning
                 Width = 160
             };
 
-            Label gusetStatusLabel = new GuestStatusLabel(guest) //StatusLabelの追加
+            Label gusetStatusLabel = new GuestStatusLabel(guest) //StatusLabelの追加　//宿泊中の場合、値段を表示
             {
                 Location = new Point(10, 10),
             };
+
 
             Controls.Add(guestNameLabel);
             Controls.Add(guestNameTextBox);
