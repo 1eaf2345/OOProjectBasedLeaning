@@ -83,8 +83,19 @@ namespace OOProjectBasedLeaning
 
                 if (StayAt() is not NullObject)
                 {
+                    string message = $"支払額は{StayAt().Price:N0}円です。";
+                    var result = MessageBox.Show(message, "ご精算", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
 
-                    StayAt().Hotel.CheckOut(this);
+                    if (result == DialogResult.OK) //OKが押されたとき、チェックアウトする
+                    {
+                        StayAt().Hotel.CheckOut(this);
+                        MessageBox.Show("チェックアウトが完了しました。", "完了", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        // Cancelが押されたとき、チェックアウトをしない
+                        MessageBox.Show("チェックアウトをキャンセルしました。", "中止", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
 
                 }
 

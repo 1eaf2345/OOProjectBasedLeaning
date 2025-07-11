@@ -127,7 +127,7 @@ namespace OOProjectBasedLeaning
     }
 
     [Serializable]
-    public class AlreadyCheckedInException : LocalizeException
+    public class AlreadyCheckedInException : LocalizeException 
     {
         private static string MESSAGE_DEFAULT = "Guest is already checked in.";
         private static string MESSAGE_JAPANESE = "ゲストはすでにチェックイン済みです。";
