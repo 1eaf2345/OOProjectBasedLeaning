@@ -44,9 +44,15 @@ namespace OOProjectBasedLeaning
                 Location = new Point(10, 10),
             };
 
+            Label guestPriceLabel = new Label //PriceLabelの追加
+            {
+
+            };
+
             Controls.Add(guestNameLabel);
             Controls.Add(guestNameTextBox);
             Controls.Add(gusetStatusLabel); //StatusLabelを追加
+            Controls.Add(guestPriceLabel); //PriceLabelを追加
         }
 
         protected override void OnPanelMouseDown()
