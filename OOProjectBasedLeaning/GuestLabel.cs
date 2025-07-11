@@ -73,7 +73,9 @@ namespace OOProjectBasedLeaning
         public void Update(object sender) //ゲストの状態
         {
 
-            if (guest.StayAt() is NullObject)
+            var room = guest.StayAt();
+
+            if (room is NullObject)
             {
 
                 Text = "帰宅中";
@@ -83,7 +85,7 @@ namespace OOProjectBasedLeaning
             else
             {
 
-                Text = "宿泊中";
+                Text = $"宿泊中:{room.Price:N0}円";
                 ForeColor = Color.Green;
 
             }
