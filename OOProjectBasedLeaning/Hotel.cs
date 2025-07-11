@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace OOProjectBasedLeaning
 {
@@ -29,17 +32,14 @@ namespace OOProjectBasedLeaning
             InitializeComponent();
         }
 
-        private void InitializeComponent() // ゲスト専用ルーム2部屋、会員専用スイートルーム2部屋
+        private void InitializeComponent() //会員限定部屋を作成
         {
             vacantRooms = new List<Room>
             {
-                // ゲスト専用ルーム（会員は利用不可ナリ）
-                new GuestOnlyRoom(801, 18000, this),
-                new GuestOnlyRoom(802, 18000, this),
-
-                // 会員専用
-                new SuiteRoom(1001, 360000, this),
-                new SuiteRoom(1002, 300000, this)
+                // 8F
+                new RegularRoom(801, 18000, this), new RegularRoom(802, 18000, this),//会員ゲストが使用可能
+                // 10F
+                new SuiteRoom(1001, 360000, this), new SuiteRoom(1002, 300000, this) //会員限定
             };
         }
 
@@ -55,20 +55,22 @@ namespace OOProjectBasedLeaning
             vacantRooms.Add(room);
         }
 
-        public void CheckIn(Guest guest)
+        public void CheckIn(Guest guest) //チェックイン処理
         {
             if (guest.StayAt() is not NullObject)
-                throw new AlreadyCheckedInException(guest);
-
-            if (IsVacancies())
             {
-                Room room = AcquireRoom();
+                throw new AlreadyCheckedInException(guest); // ← 例外を出す
+            }
+
+            if (IsVacancies()) //空き室確認
+            {
+                Room room = AcquireRoom(); //空き室を1つ取得
                 try
                 {
-                    guestBook.Add(room.AddGuest(guest));
+                    guestBook.Add(room.AddGuest(guest)); //ゲストを追加
                     Notify();
                 }
-                catch (Exception ex)
+                catch (OnlyMembersCanStayInSuiteRoomsException ex)
                 {
                     ReleaseRoom(room);
                     throw ex;
@@ -80,20 +82,22 @@ namespace OOProjectBasedLeaning
             }
         }
 
-        public void CheckIn(List<Guest> guests)
+        public void CheckIn(List<Guest> guests) //チェックイン処理(複数)
         {
             if (guests.Any(g => g.StayAt() is not NullObject))
-                throw new AlreadyCheckedInException(guests);
+            {
+                throw new AlreadyCheckedInException(guests); // ← 複数人の例外を出す
+            }
 
             if (IsVacancies())
             {
                 Room room = AcquireRoom();
                 try
                 {
-                    guestBook.Add(room.AddGuests(guests));
+                    guestBook.Add(room.AddGuests(guests)); //複数のゲストを追加
                     Notify();
                 }
-                catch (Exception ex)
+                catch (OnlyMembersCanStayInSuiteRoomsException ex)
                 {
                     ReleaseRoom(room);
                     throw ex;
@@ -105,20 +109,20 @@ namespace OOProjectBasedLeaning
             }
         }
 
-        public void CheckOut(Guest guest)
+        public void CheckOut(Guest guest) //チェックアウト処理
         {
-            Room room = guest.StayAt();
-            if (room.RemoveGuest(guest).IsEmpty())
+            Room room = guest.StayAt(); //滞在部屋を確認
+            if (room.RemoveGuest(guest).IsEmpty()) //部屋からゲストを削除後、部屋の確認
             {
-                guestBook.Remove(room);
-                ReleaseRoom(room);
+                guestBook.Remove(room); //部屋に誰もいない場合、宿泊記録を削除
+                ReleaseRoom(room); //部屋を空き部屋にもどす
             }
             Notify();
         }
 
-        public void CheckOut(List<Guest> guests)
+        public void CheckOut(List<Guest> guests) //チェックアウト処理(複数)
         {
-            guests.ForEach(guest => CheckOut(guest));
+            guests.ForEach(guest => CheckOut(guest)); //順番にCheckOut処理を行う
         }
 
         public bool IsVacancies()
@@ -133,41 +137,26 @@ namespace OOProjectBasedLeaning
         private NullHotel() { }
         public static Hotel Instance => instance;
 
-        public void CheckIn(Guest guest) { }
-        public void CheckIn(List<Guest> guests) { }
-        public void CheckOut(Guest guest) { }
-        public void CheckOut(List<Guest> guests) { }
-        public bool IsVacancies() => false;
-    }
-
-    // =================== 追加クラスと例外 ===================
-
-    public class GuestOnlyRoom : RegularRoom
-    {
-        public GuestOnlyRoom(int number, int price, Hotel hotel)
-            : base(number, price, hotel) { }
-
-        public override Room AddGuest(Guest guest)
+        public void CheckIn(Guest guest)
         {
-            if (guest.IsMember())
-                throw new OnlyGuestsCanStayInRegularRoomsException();
-            return base.AddGuest(guest);
         }
 
-        public override Room AddGuests(List<Guest> guests)
+        public void CheckIn(List<Guest> guests)
         {
-            if (guests.Any(g => g.IsMember()))
-                throw new OnlyGuestsCanStayInRegularRoomsException();
-            return base.AddGuests(guests);
+        }
+
+        public void CheckOut(Guest guest)
+        {
+        }
+
+        public void CheckOut(List<Guest> guests)
+        {
+        }
+
+        public bool IsVacancies()
+        {
+            return false;
         }
     }
-
-    public class OnlyGuestsCanStayInRegularRoomsException : Exception
-    {
-        public OnlyGuestsCanStayInRegularRoomsException()
-            : base("この部屋はゲスト専用です。会員は宿泊できません。") { }
-    }
-
-    // Room, RegularRoom, SuiteRoom, Guest, Place, NullObject, NotifierModelEntity,
-    // AlreadyCheckedInException, IsNotVacanciesException などは別途定義されている前提
 }
+
