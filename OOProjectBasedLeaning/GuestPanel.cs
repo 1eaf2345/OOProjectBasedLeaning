@@ -18,6 +18,9 @@ namespace OOProjectBasedLeaning
 
             this.guest = guest;
 
+            (this.guest as AbstractGuest).OnCheckOutCanceled = RestorePanelToHotel; //GuestからHotelFormに戻す処理ができるように設定
+
+
             InitializeComponent();
 
         }
@@ -97,6 +100,17 @@ namespace OOProjectBasedLeaning
 
 
         }
+
+        private void RestorePanelToHotel() //Hotelの指定した位置にパネルを戻す
+        {
+            var hotelForm = Application.OpenForms.OfType<HotelForm>().FirstOrDefault();
+            if (hotelForm != null)
+            {
+                this.Parent = hotelForm;
+                this.Location = new Point(30, 30); // 任意の戻したい位置
+            }
+        }
+
 
     }
 

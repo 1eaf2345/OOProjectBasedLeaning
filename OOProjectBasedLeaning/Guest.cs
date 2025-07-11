@@ -9,6 +9,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace OOProjectBasedLeaning
 {
 
+
     public interface Guest : Model
     {
 
@@ -27,6 +28,7 @@ namespace OOProjectBasedLeaning
         //bool IsAtCheckOUT();
     }
 
+
     public interface Member : Guest
     {
 
@@ -40,14 +42,17 @@ namespace OOProjectBasedLeaning
 
     public abstract class AbstractGuest : NotifierModelEntity, Guest
     {
+
         private Place place = NullPlace.Instance;
         private Room room = NullRoom.Instance;
+
+        public Action? OnCheckOutCanceled { get; set; }
 
         //private string status = "NONE"; // 状態管理用フィールド
 
         //public string Name { get; protected set; } = "未設定";
 
-        
+
         //public bool IsAtCheckIN()//チェックインの判定
         //{
         //    return status == "IN";
@@ -95,6 +100,10 @@ namespace OOProjectBasedLeaning
                     {
                         // Cancelが押されたとき、チェックアウトをしない
                         MessageBox.Show("チェックアウトをキャンセルしました。", "中止", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                        // GuestPanelに処理を委ねる
+                        OnCheckOutCanceled?.Invoke();
+
                     }
 
                 }
