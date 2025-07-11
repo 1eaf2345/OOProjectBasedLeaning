@@ -71,7 +71,7 @@ namespace OOProjectBasedLeaning
                 catch (Exception ex)
                 {
                     ReleaseRoom(room);
-                    throw ex;
+                    MessageBox.Show($"{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
@@ -96,7 +96,7 @@ namespace OOProjectBasedLeaning
                 catch (Exception ex)
                 {
                     ReleaseRoom(room);
-                    throw ex;
+                    MessageBox.Show($"{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
