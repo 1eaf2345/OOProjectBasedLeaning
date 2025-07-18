@@ -112,7 +112,7 @@ namespace OOProjectBasedLeaning
         public void CheckOut(Guest guest) //チェックアウト処理
         {
             Room room = guest.StayAt(); //滞在部屋を確認
-            if (room.RemoveGuest(guest).IsEmpty()) //部屋からゲストを削除後、部屋の確認
+            if (room.CheckOutGuest(guest)) //部屋からゲストを削除後、部屋の確認
             {
                 guestBook.Remove(room); //部屋に誰もいない場合、宿泊記録を削除
                 ReleaseRoom(room); //部屋を空き部屋にもどす

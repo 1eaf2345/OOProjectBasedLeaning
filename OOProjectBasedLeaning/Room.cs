@@ -30,6 +30,8 @@ namespace OOProjectBasedLeaning
 
         bool IsEmpty();
 
+        bool CheckOutGuest(Guest guest);
+
     }
 
     public class RoomModel : ModelEntity, Room
@@ -157,6 +159,14 @@ namespace OOProjectBasedLeaning
 
         }
 
+        public bool CheckOutGuest(Guest guest) //Guestをチェックアウトさせる
+        {
+            RemoveGuest(guest);
+            guest.RemoveRoom(); //Guestの状態更新
+
+            return IsEmpty(); //部屋が空になったかの確認
+        }
+
     }
 
     public class RegularRoom : RoomModel
@@ -275,6 +285,11 @@ namespace OOProjectBasedLeaning
 
             return this;
 
+        }
+
+        public bool CheckOutGuest(Guest guest)
+        {
+            throw new NotImplementedException();
         }
 
         public bool HasMember()
